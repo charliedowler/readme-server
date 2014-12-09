@@ -1,0 +1,26 @@
+{
+  "name": "readme-server",
+  "version": "0.1.0",
+  "description": "Run a readme preview server from your terminal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charliedowler/readme-server.git"
+  },
+  "keywords": [
+    "readme",
+    "markdown"
+  ],
+  "author": "charliedowler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charliedowler/readme-server/issues"
+  },
+  "homepage": "https://github.com/charliedowler/readme-server",
+  "dependencies": {
+    "gaze": "^0.6.4"
+  }
+}
