@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/charliedowler/readme-server",
   "dependencies": {
-    "gaze": "^0.6.4"
+    "showdown": "^0.3.1"
   }
 }
