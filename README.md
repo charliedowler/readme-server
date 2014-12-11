@@ -12,6 +12,9 @@ $ npm install --global readme-server
 $ readme
 ```
 
+## Release History
+ * 2014-12-11    v0.1.0 Initial release
+
 ## License
 
 ISC © Charlie Dowler
