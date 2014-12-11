@@ -22,5 +22,8 @@
   "homepage": "https://github.com/charliedowler/readme-server",
   "dependencies": {
     "showdown": "^0.3.1"
+  },
+  "bin": {
+    "readme": "index.js"
   }
 }

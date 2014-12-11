@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var fs = require('fs');
 var http = require('http');
 var template = require('./template');
