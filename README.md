@@ -13,7 +13,8 @@ $ readme
 ```
 
 ## Release History
- * 2014-12-11    v0.1.0 Initial release
+ * 2014-12-19    v0.2.0 Fix incorrect file loading
+ * 2014-12-11    v0.1.0 Initial release (broken)
 
 ## License
 
