@@ -26,5 +26,8 @@
   },
   "bin": {
     "readme": "index.js"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.11"
   }
 }
