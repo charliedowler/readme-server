@@ -1,9 +1,10 @@
 #!/usr/bin/env node
+'use strict';
 var fs = require('fs');
 var http = require('http');
+var Showdown = require('showdown');
 var template = require('./template');
 
-var Showdown = require('showdown');
 var converter = new Showdown.converter();
 
 var filename = fs.readdirSync('.').filter(function(name) {
@@ -27,11 +28,14 @@ var server = http.createServer(function(req, resp) {
   }
   resp.end(result);
 });
+
 var spawn = require('child_process').spawn;
-server.listen(5678,"localhost", function(err) {
-  if(err) throw err;
+server.listen(5678, 'localhost', function(err) {
+  if(err) {
+    throw err;
+  }
   var host = ['http://localhost:' + server.address().port + '/'];
-  spawn('open',host);
+  spawn('open', host);
   console.log('Server started on ' + host.join(''));
 });
 
@@ -39,5 +43,5 @@ fs.watchFile(filename, {
   interval: 300
 }, function() {
   changed = true;
-  contents = fs.readFileSync(filename)
+  contents = fs.readFileSync(filename);
 });
