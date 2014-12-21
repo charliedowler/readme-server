@@ -18,6 +18,16 @@ var contents = fs.readFileSync(filename);
 var changed = true;
 
 var server = http.createServer(function(req, resp) {
+  if (req.url != '/') {
+    // Attempt to load images
+    try {
+      resp.end(fs.readFileSync('.' + req.url));
+    }
+    catch (e) {
+      resp.writeHead(404);
+      resp.end();
+    }
+  }
   var result = converter.makeHtml(contents.toString());
   result = template.head + result + template.footer;
   if (changed) {
