@@ -1,1 +1,6 @@
-module.exports = "</div> </div> </body> </html>";
+module.exports = (function () {/*
+ </div>
+ </div>
+ </body>
+ </html>
+ */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];

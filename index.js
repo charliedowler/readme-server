@@ -18,7 +18,7 @@ var contents = fs.readFileSync(filename);
 var changed = true;
 
 var server = http.createServer(function(req, resp) {
-  if (req.url != '/') {
+  if (req.url !== '/') {
     // Attempt to load images
     try {
       resp.end(fs.readFileSync('.' + req.url));
@@ -29,7 +29,7 @@ var server = http.createServer(function(req, resp) {
     }
   }
   var result = converter.makeHtml(contents.toString());
-  result = template.head + result + template.footer;
+  result = template(result);
   if (changed) {
     changed = false;
   }
