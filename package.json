@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/charliedowler/readme-server",
   "dependencies": {
+    "highlight.js": "^8.4.0",
     "marked": "^0.3.2"
   },
   "bin": {

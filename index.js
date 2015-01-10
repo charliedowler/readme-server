@@ -11,7 +11,6 @@ var filename = fs.readdirSync('.').filter(function(name) {
 if (!filename) {
   throw new Error('Failed to find a readme file');
 }
-
 var contents = fs.readFileSync(filename);
 var changed = true;
 
@@ -27,7 +26,11 @@ var server = http.createServer(function(req, resp) {
     }
     return true;
   }
-  marked(contents.toString(), function (err, result) {
+  marked(contents.toString(), {
+    highlight: function (code) {
+      return require('highlight.js').highlightAuto(code).value;
+    }
+  }, function (err, result) {
     resp.setHeader('Content-Type', 'text/html');
     result = template(result);
     if (changed) {
