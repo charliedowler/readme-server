@@ -8,7 +8,7 @@ var template = require('./template');
 var converter = new Showdown.converter();
 
 var filename = fs.readdirSync('.').filter(function(name) {
-  return /readme/i.test(name) && /(.md|.markdown)/i.test(name);
+  return /^readme(.md|.markdown)$/i.test(name);
 })[0];
 if (!filename) {
   throw new Error('Failed to find a readme file');
