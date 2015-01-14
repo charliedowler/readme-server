@@ -14,7 +14,6 @@ if (!filename) {
   throw new Error('Failed to find a readme file');
 }
 var contents = fs.readFileSync(filename);
-var changed = true;
 
 var parser = function(txt, callback) {
   marked(txt.toString(), {
@@ -34,12 +33,6 @@ var server = http.createServer(function(req, resp) {
       parser(txt, function(result) {
         resp.setHeader('Content-Type', 'text/html');
         result = template(result);
-        if (isCurrentFile && changed) {
-          changed = false;
-        }
-        else if (isCurrentFile) {
-          resp.writeHead(304);
-        }
         resp.end(result);
       });
     }
@@ -67,6 +60,5 @@ server.listen(5678, 'localhost', function(err) {
 fs.watchFile(filename, {
   interval: 300
 }, function() {
-  changed = true;
   contents = fs.readFileSync(filename);
 });

@@ -9,8 +9,6 @@ module.exports = (function () {/*
       document.open()
       document.write(req.responseText)
       document.close()
-    } else if (req.status == 304) {
-    longpoll()
     } else {
       document.getElementById('notify').innerHTML = 'not connected'
     }
@@ -18,6 +16,6 @@ module.exports = (function () {/*
  }
   req.send(null)
  }
- document.onload = longpoll()
+ setTimeout(longpoll, 300);
 </script>
  */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
