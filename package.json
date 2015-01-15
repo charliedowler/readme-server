@@ -1,6 +1,6 @@
 {
   "name": "readme-server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Run a readme preview server from your terminal",
   "main": "index.js",
   "scripts": {
