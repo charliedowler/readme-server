@@ -4,11 +4,12 @@ var fs = require('fs');
 var http = require('http');
 var marked = require('marked');
 var template = require('./template');
+var exts = require('markdown-extensions');
 
-var isMarkdown = /(.md|.markdown)$/i;
+var isMarkdown = new RegExp('(' + exts.join('|') + ')$', 'i');
 
 var filename = fs.readdirSync('.').filter(function(name) {
-  return /^readme(.md|.markdown)$/i.test(name);
+  return new RegExp('^readme.(' + exts.join('|') + ')$', 'i').test(name);
 })[0];
 if (!filename) {
   throw new Error('Failed to find a readme file');
