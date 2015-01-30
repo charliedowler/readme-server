@@ -22,7 +22,7 @@ var parser = function(txt, callback) {
       return require('highlight.js').highlightAuto(code).value;
     }
   }, function (err, result) {
-    callback(result);
+    callback(err, result);
   });
 };
 
@@ -31,9 +31,9 @@ var server = http.createServer(function(req, resp) {
     if (isMarkdown.test(req.url)) {
       var isCurrentFile = new RegExp(filename, 'i').test(req.url);
       var txt = isCurrentFile ? contents : fs.readFileSync('.' + req.url);
-      parser(txt, function(result) {
+      parser(txt, function(err, result) {
         resp.setHeader('Content-Type', 'text/html');
-        result = template(result);
+        result = err || template(result);
         resp.end(result);
       });
     }
