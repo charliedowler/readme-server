@@ -43,7 +43,7 @@ var server = http.createServer(function(req, resp) {
   }
   catch (e) {
     resp.writeHead(404);
-    resp.end();
+    resp.end(e.toString());
   }
   return true;
 });
