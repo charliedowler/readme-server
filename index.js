@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict';
+require('colors');
 var fs = require('fs');
 var http = require('http');
 var marked = require('marked');
@@ -58,8 +59,27 @@ server.listen(5678, 'localhost', function(err) {
   console.log('Server started on ' + host.join(''));
 });
 
+var padme = function(num) {
+  return (num < 10) ? '0' + num : num;
+}
+
 fs.watchFile(filename, {
   interval: 300
-}, function() {
+}, function(nextPayload) {
+  var moment = nextPayload.mtime;
+
+  var date = [
+    moment.getFullYear(),
+    padme(moment.getMonth()),
+    padme(moment.getDay())
+  ].join('/');
+
+  var time = [
+    padme(moment.getHours()),
+    padme(moment.getMinutes()),
+    padme(moment.getSeconds())
+  ].join(':');
+
+  console.log(date, time, 'Detected file change'.cyan)
   contents = fs.readFileSync(filename);
 });
