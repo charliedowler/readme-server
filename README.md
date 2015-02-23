@@ -1,4 +1,4 @@
-## readme-server
+## readme-server [![Build Status][travis-image]][travis-url]
 
 > Live preview your markdown readme files
 
@@ -20,3 +20,6 @@ $ readme
 ## License
 
 ISC © Charlie Dowler
+
+[travis-url]: http://travis-ci.org/charliedowler/readme-server
+[travis-image]: https://secure.travis-ci.org/charliedowler/readme-server.png?branch=master
