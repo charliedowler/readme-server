@@ -83,3 +83,12 @@ fs.watchFile(filename, {
   console.log(date, time, 'Detected file change'.cyan)
   contents = fs.readFileSync(filename);
 });
+
+function gracefulServerShutdown() {
+  server.close();
+  process.exit();
+}
+
+process
+  .on('SIGINT', gracefulServerShutdown)
+  .on('uncaughtException', gracefulServerShutdown);
