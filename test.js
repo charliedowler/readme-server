@@ -4,6 +4,8 @@ var http = require('http');
 var assert = require('assert');
 var marked = require('marked');
 var exec = require('child_process').exec;
+// Stop browser being launched when testing
+require('child_process').spawn = function() {};
 
 var file = fs.readFileSync('README.md');
 
