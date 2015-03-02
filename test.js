@@ -9,7 +9,7 @@ require('child_process').spawn = function() {};
 
 var file = fs.readFileSync('README.md');
 
-exec('node index');
+var index = exec('node index');
 
 setTimeout(function() {
   http.get('http://localhost:5678/README.md', function(res) {
@@ -30,10 +30,10 @@ setTimeout(function() {
           console.log('Failure'.red);
           console.log('From server:'.yellow, data);
           console.log('Parsed markdown:'.yellow, result);
-          process.exit(1);
+          index.kill();
         }
         console.log('All tests passed'.green);
-        process.exit(0);
+        index.kill();
       });
     });
   });

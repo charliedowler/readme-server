@@ -63,9 +63,7 @@ var padme = function(num) {
   return (num < 10) ? '0' + num : num;
 }
 
-fs.watchFile(filename, {
-  interval: 300
-}, function(nextPayload) {
+function watcher(nextPayload) {
   var moment = nextPayload.mtime;
 
   var date = [
@@ -82,13 +80,25 @@ fs.watchFile(filename, {
 
   console.log(date, time, 'Detected file change'.cyan)
   contents = fs.readFileSync(filename);
+}
+
+fs.watchFile(filename, {
+  interval: 300
+}, watcher);
+
+server.on('close', function() {
+  process.exit(0);
 });
 
+var closed = false;
 function gracefulServerShutdown() {
-  server.close();
-  process.exit();
+  if (!closed) {
+    closed = true;
+    server.close();
+  }
 }
 
 process
+  .on('exit', gracefulServerShutdown)
   .on('SIGINT', gracefulServerShutdown)
   .on('uncaughtException', gracefulServerShutdown);
