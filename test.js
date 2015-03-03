@@ -31,9 +31,11 @@ setTimeout(function() {
           console.log('From server:'.yellow, data);
           console.log('Parsed markdown:'.yellow, result);
           index.kill();
+          process.exit(1);
         }
         console.log('All tests passed'.green);
         index.kill();
+        process.exit(0);
       });
     });
   });
