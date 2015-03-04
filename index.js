@@ -27,26 +27,36 @@ var parser = function(txt, callback) {
   });
 };
 
+var getRelativeFile = function(path) {
+  return fs.readFileSync('.' + path);
+};
+var globResponse = null;
+
 var server = http.createServer(function(req, resp) {
+  var url = req.url;
+
   try {
-    if (isMarkdown.test(req.url)) {
-      var isCurrentFile = new RegExp(filename, 'i').test(req.url);
-      var txt = isCurrentFile ? contents : fs.readFileSync('.' + req.url);
-      parser(txt, function(err, result) {
-        resp.setHeader('Content-Type', 'text/html');
-        result = err || template(result);
-        resp.end(result);
-      });
+    if (isMarkdown.test(url)) {
+      resp.setHeader('Content-Type', 'text/html');
+      if (url.indexOf(filename) >= 0 && globResponse) {
+        globResponse = resp;
+      }
+      else {
+        parser(getRelativeFile(url), function(err, result) {
+          if (err) throw err;
+          resp.end(template(result));
+        });
+        globResponse = true;
+      }
     }
     else {
-      resp.end(fs.readFileSync('.' + req.url));
+      resp.end(getRelativeFile(url));
     }
   }
-  catch (e) {
+  catch(e) {
     resp.writeHead(404);
     resp.end(e.toString());
   }
-  return true;
 });
 
 var spawn = require('child_process').spawn;
@@ -78,17 +88,17 @@ function watcher(nextPayload) {
     padme(moment.getSeconds())
   ].join(':');
 
-  console.log(date, time, 'Detected file change'.cyan)
-  contents = fs.readFileSync(filename);
+  console.log(date, time, 'Detected file change'.cyan);
+  var contents = fs.readFileSync(filename);
+  parser(contents, function(err, result) {
+    if (err) throw err;
+    globResponse.end(template(result));
+  });
 }
 
 fs.watchFile(filename, {
   interval: 300
 }, watcher);
-
-server.on('close', function() {
-  process.exit(0);
-});
 
 var closed = false;
 function gracefulServerShutdown() {
@@ -96,6 +106,7 @@ function gracefulServerShutdown() {
     closed = true;
     server.close();
   }
+  process.exit(0);
 }
 
 process
