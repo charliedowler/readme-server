@@ -24,7 +24,6 @@
   "dependencies": {
     "colors": "^1.0.3",
     "highlight.js": "^8.4.0",
-    "markdown-extensions": "^1.1.0",
     "marked": "^0.3.2"
   },
   "bin": {
